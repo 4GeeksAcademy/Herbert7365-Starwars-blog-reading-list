@@ -12,13 +12,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					background: "white",
 					initial: "white"
 				}
-			]
+			],
+			personajes: []
 		},
 		actions: {
 			// Use getActions to call a function within a fuction
-			exampleFunction: () => {
-				getActions().changeColor(0, "green");
+			// Personajes: () => {
+			// 	fetch("https://www.swapi.tech/api/people")
+			// 		.then(res => res.json())
+			// 		.then(data => setStore({...getStore(), personajes: data.results}))
+			// 		.catch(err => console.error(err))
+			// },
+		
+			getPersonajes: async () => {
+				try {
+					const response = await fetch(`https://www.swapi.tech/api/people`)
+					const data = await response.json();
+					setStore({...getStore(), personajes: data.results});
+					
+				} catch(error) {
+					console.error("Error del argumento", error);
+				}
 			},
+
 			loadSomeData: () => {
 				/**
 					fetch().then().then(data => setStore({ "foo": data.bar }))
